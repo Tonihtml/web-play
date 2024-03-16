@@ -110,7 +110,8 @@
       if (game.board[id] == "") {
         if (game.active == 0) {
           game.board[id] = "X"
-        } else {
+        }
+        if (game.active == 1) {
           game.board[id] = "O"
         }
         updateBoard();
