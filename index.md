@@ -4,5 +4,4 @@
 * [Raphael](raphael/index.html)
 * [Christina](christina/index.html)
 * [Charlotte](charlotte/index.html)
-* [Luis](luis/index.html)
-* [Anton](anton/index.html)
+* [Luis/Anton](luis_anton/index.html)
