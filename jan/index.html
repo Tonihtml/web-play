@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let's Play</title>
+  <style>
+    .box {
+      display: inline-block;
+      height: 50px;
+      width: 50px;
+      border: solid black 1px;
+      text-align: center;
+      line-height: 50px;
+      vertical-align: middle;
+      margin: 0px;
+      padding: 0px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 40px;
+    }
+
+    .row {
+      display: flex;
+    }
+    
+    .active {
+      background-color: gold;
+    }
+
+    #board {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <input id="name" type="text" value="Jan">
+    <button onclick="newGame()">Neu</button>
+    <button onclick="joinGame()">Beitreten</button>
+  </div>
+  <div id="board">
+    <span id="player1"></span> : <span id="player2"></span>
+    <div class="row">
+      <div id="b11" class="box"></div>
+      <div id="b12" class="box"></div>
+      <div id="b13" class="box"></div>
+    </div>
+    <div class="row">
+      <div id="b21" class="box"></div>
+      <div id="b22" class="box"></div>
+      <div id="b23" class="box"></div>
+    </div>
+    <div class="row">
+      <div id="b31" class="box"></div>
+      <div id="b32" class="box"></div>
+      <div id="b33" class="box"></div>
+    </div>
+  </div>
+  <div>
+    <button onclick="sendMove()">Senden</button>
+  </div>
+
+  <script>
+    var game = {
+      board: { b11: "", b12: "", b13: "", b21: "", b22: "", b23: "", b31: "", b32: "", b33: "" },
+      players: ["", ""],
+      active: -1
+    }
+
+    function newGame() {
+      var name = document.getElementById("name").value
+
+      if (name != "") {
+        game = {
+          board: { b11: "", b12: "", b13: "", b21: "", b22: "", b23: "", b31: "", b32: "", b33: "" },
+          players: [name, ""],
+          active: 0
+        }
+
+        updateBoard()
+      }
+    }
+
+    function joinGame() {
+      var name = document.getElementById("name").value
+
+      if (name != "" && game.players[1] == "") {
+        game.players[1] = name
+        updateBoard()
+      }
+    }
+
+    function sendMove() {
+      game.active = (game.active+1) % 2
+      updateBoard()
+    }
+
+    function updateBoard() {
+      document.getElementById("player1").innerText = game.players[0]
+      document.getElementById("player1").className = game.active == 0 ? 'active' : ''
+      document.getElementById("player2").innerText = game.players[1]
+      document.getElementById("player2").className = game.active == 1 ? 'active' : ''
+      for (const id in game.board) {
+        document.getElementById(id).innerText = game.board[id]
+      }
+    }
+
+    function boxClicked(ev) {
+      const id = ev.srcElement.id
+      if (game.board[id] == "") {
+        if (game.active == 0) {
+          game.board[id] = "X"
+        } else {
+          game.board[id] = "O"
+        }
+        updateBoard();
+      }
+    }
+
+    for (const el of document.getElementsByClassName("box")) {
+      el.addEventListener("click", boxClicked)
+    }
+  </script>
+</body>
+</html>
