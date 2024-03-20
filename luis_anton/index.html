@@ -5,18 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Let's Play</title>
   <style>
-    .box {
-      display: inline-block;
-      height: 50px;
-      width: 50px;
-      border: solid black 1px;
-      text-align: center;
-      line-height: 50px;
-      vertical-align: middle;
-      margin: 0px;
-      padding: 0px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 40px;
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            height: 100dvh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: black;
+            flex-direction: column;
+        }
+        .menu{
+            margin-top: 100px;
+            height: 300px;
+            width: 340px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 20px;
+        }
+        input{
+            height: 35px;
+            font-size: 18px;
+            width: 200px;
+            border: none;
+            background: rgb(255, 255, 255);
+            box-shadow: 0px 0px 7px 0px white;
+            border-radius: 10px;
+            margin: 10px;
+            font-family: sans-serif;
+            padding-left: 5px;
+            margin-top: -170px;
+        }
+        .newgame, .joingame{
+            position: absolute;
+            height: 40px;
+            width: 200px;
+            font-size: 22px;
+            font-family: sans-serif;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        .joingame{
+            background: rgb(0, 182, 15);
+            border: none;
+            box-shadow: 3px 3px 6px 0px rgb(26, 26, 26);
+            color: white;
+            text-shadow: 2px 2px grey;
+            width: 160px;
+            height: 70px;
+            margin-top: 40px;
+            margin-left: -80px;
+            transition: 200ms;
+        }
+        .joingame:hover{
+          background: rgb(0, 211, 18);
+          transform: scale(1.05);
+          margin-left: -90px;
+          margin-top: 33px;
+          box-shadow: 4px 4px 6px 0px rgb(26, 26, 26);
+        }
+        .newgame{
+            background: rgb(0, 138, 11);
+            color: white;
+            text-shadow: 2px 2px grey;
+            border: none;
+            margin-top: 130px;
+            box-shadow: inset -1px -1px 5px 0px rgb(26, 26, 26);
+            text-align: unset;
+            padding-left: 40px;
+            padding-top: 20px;
+            height: 80px;
+            width: 170px;
+            margin-left: 50px;
+            transition: 200ms;
+        }
+        .newgame:hover{
+          background: rgb(0, 160, 13);
+          transform: scale(1.02);
+          margin-left: 40px;
+          margin-top: 127px;
+        }
+        .newgame:hover ~ .joingame{
+          box-shadow: 2px 2px 6px 0px rgb(26, 26, 26);
+        }
+          
+    .box{
+      border: 2px solid white;
+      height: 70px;
+      width: 70px;
+      margin: 5px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 5px 0px white;
+      transition: 50ms;
+    }
+    .box:hover{
+        transform: scale(0.95);
     }
 
     .row {
@@ -30,35 +117,36 @@
     #board {
       padding: 10px;
     }
-  </style>
+    </style>
 </head>
 <body>
-  <div>
-    <input id="name" type="text">
-    <button onclick="newGame()">Neu</button>
-    <button onclick="joinGame()">Beitreten</button>
-  </div>
-  <div id="board">
-    <span id="player1"></span> : <span id="player2"></span>
-    <div class="row">
-      <div id="b11" class="box"></div>
-      <div id="b12" class="box"></div>
-      <div id="b13" class="box"></div>
-    </div>
-    <div class="row">
-      <div id="b21" class="box"></div>
-      <div id="b22" class="box"></div>
-      <div id="b23" class="box"></div>
-    </div>
-    <div class="row">
-      <div id="b31" class="box"></div>
-      <div id="b32" class="box"></div>
-      <div id="b33" class="box"></div>
-    </div>
-  </div>
-  <div>
+  <div class="container">
+    <div class="menu">
+        <input id="name" type="text" placeholder="Name:"> 
+        <button class="newgame" onclick="newGame()">neues Spiel</button>
+        <button class="joingame" onclick="joinGame()"> einem Spiel beitreten</button> 
+      </div>
+      
+      <div id="board">
+        <span id="player1"></span> : <span id="player2"></span>
+        <div class="row">
+          <div id="b11" class="box"></div>
+          <div id="b12" class="box"></div>
+          <div id="b13" class="box"></div>
+        </div>
+        <div class="row">
+          <div id="b21" class="box"></div>
+          <div id="b22" class="box"></div>
+          <div id="b23" class="box"></div>
+        </div>
+        <div class="row">
+          <div id="b31" class="box"></div>
+          <div id="b32" class="box"></div>
+          <div id="b33" class="box"></div>
+        </div>
+      </div>
     <button onclick="sendMove()">Senden</button>
-  </div>
+    </div>
 
   <script>
     var game = {
